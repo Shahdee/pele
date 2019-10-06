@@ -12,6 +12,7 @@ public class WinGameplay : WinViewBase
     // fields 
 
     public UIBall m_Ball;
+    public List<UIBorder> m_Borders;
 
     protected override void InInit(){
 
@@ -21,6 +22,10 @@ public class WinGameplay : WinViewBase
         
         // m_Progress.Init();
         // m_Lock.m_BtnTry.m_OnBtnClickClbck += TryClick;
+
+        for (int i=0; i<m_Borders.Count; i++){
+            m_Borders[i].Init(m_MainLogic);
+        }
 
         m_Ball.m_ButtonHandler.m_OnBtnDownClbck += OnBallDown;
         m_Ball.m_ButtonHandler.m_OnBtnUpClbck += OnBallUp;

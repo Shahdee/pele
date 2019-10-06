@@ -25,12 +25,12 @@ public class GUILogic : UIObject, IInitable, IUpdatable
         
         InitWindows();
 
-        // OpenWindow(WinViewBase.WinType.Menu);
-
+        // OpenWindow(WinViewBase.WinType.Menu); 
+ 
         Debug.Log("Screen " + Screen.width + " . " + Screen.height);
         Debug.Log("RTrs " + m_RectTransform.sizeDelta.x + " / " + m_RectTransform.sizeDelta.y);
 
-        m_MainLogic.StartGame();
+        m_MainLogic.StartGame(); // for test here
     }
 
     void InitWindows(){

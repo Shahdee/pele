@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIBorder : UIObject
+public class UIBorder : UIObject, IInitable
 {
     public BoxCollider2D m_BoxCollider;
     Vector2 m_VecSize;
 
-   public void Awake(){
+   public void Init(MainLogic logic){
 
     //    Debug.Log("RTrs border" + m_RectTransform.sizeDelta.x + " / " + m_RectTransform.sizeDelta.y);
     //    Debug.Log("RTrs anchor min/max" + m_RectTransform.anchorMin + " / " + m_RectTransform.anchorMax);

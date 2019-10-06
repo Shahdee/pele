@@ -47,7 +47,6 @@ public class MainLogic : MonoBehaviour
 
         m_InputManager.Init(this);
         m_EntityManager.Init(this);
-        
         m_GUILogic.Init(this);
     }
 
@@ -61,30 +60,59 @@ public class MainLogic : MonoBehaviour
 #elif UNITY_ANDROID
         m_PlayfabConnect = new PlayFabConnectAndroid();       
 #endif
+        // TODO future - we should init backend with ui 
+
         m_PlayfabConnect.AddLoginSuccessListener(OnLoginSuccess);
         m_PlayfabConnect.AddLoginFailListener(OnLoginFail);
+        
+        m_PlayfabConnect.AddCredentialsSuccessListener(OnAddCredentialsSuccess);
+        m_PlayfabConnect.AddCredentialsFailListener(OnAddCredentialsFail);
 
         m_PlayfabConnect.SendLogin();
     }
+
+    // TODO future - show window asking to add credentials 
 
     void OnLoginSuccess(string playerId, bool newlyCreated){
 
         Debug.LogError("OnLoginSuccess " + playerId + " / " + newlyCreated);
 
-        if (newlyCreated){
-            m_PlayfabConnect.SendRegister();
+        m_Profile.SetPlayerId(playerId);
 
+        if (newlyCreated){
+            m_PlayfabConnect.SendAddUsernamePassword(); 
         }
         else{
-            m_PlayfabConnect.SendLoginWithPlayFab();
+            // TODO future - what if a player didn't add credentials in the prev session? 
+
+            OnAuthComplete();
         }
     }
 
     void OnLoginFail(){
-        // TODO should retry several times before giving up 
+        // TODO future - should retry several times before giving up 
+    }
+
+    void OnAddCredentialsSuccess(){
+
+        OnAuthComplete();
+    }
+
+    void OnAddCredentialsFail(){
+
+        OnAuthComplete();
+
+        // TODO future - doesn't mean we can't continue playing the game 
     }
 
 #endregion
+
+    void OnAuthComplete(){
+        Debug.Log("OnAuthComplete");
+
+        // get player data 
+        // show ui 
+    }
 
     public void StartGame(){
 
