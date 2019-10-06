@@ -15,6 +15,8 @@ public class MainLogic : MonoBehaviour
     LevelLogic m_LevelLogic;
     PlayerProfile m_Profile;
 
+    PlayFabConnect m_PlayfabConnect;
+
     public DataLoader GetDataLoader(){
         return m_DataLoader;
     }
@@ -41,12 +43,48 @@ public class MainLogic : MonoBehaviour
         m_LevelLogic = new LevelLogic(this);
         m_Profile = new PlayerProfile(this);
 
+        InitBackend();
+
         m_InputManager.Init(this);
         m_EntityManager.Init(this);
         
         m_GUILogic.Init(this);
-
     }
+
+#region Backend 
+    void InitBackend(){
+
+#if UNITY_EDITOR || UNITY_STANDALONE
+        m_PlayfabConnect = new PlayFabConnect();
+#elif UNITY_IOS
+        m_PlayfabConnect = new PlayFabConnectIOS();
+#elif UNITY_ANDROID
+        m_PlayfabConnect = new PlayFabConnectAndroid();       
+#endif
+        m_PlayfabConnect.AddLoginSuccessListener(OnLoginSuccess);
+        m_PlayfabConnect.AddLoginFailListener(OnLoginFail);
+
+        m_PlayfabConnect.SendLogin();
+    }
+
+    void OnLoginSuccess(string playerId, bool newlyCreated){
+
+        Debug.LogError("OnLoginSuccess " + playerId + " / " + newlyCreated);
+
+        if (newlyCreated){
+            m_PlayfabConnect.SendRegister();
+
+        }
+        else{
+            m_PlayfabConnect.SendLoginWithPlayFab();
+        }
+    }
+
+    void OnLoginFail(){
+        // TODO should retry several times before giving up 
+    }
+
+#endregion
 
     public void StartGame(){
 

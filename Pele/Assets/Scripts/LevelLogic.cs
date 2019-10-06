@@ -17,8 +17,8 @@ public class LevelLogic: IUpdatable
     // UnityAction m_BagUnlockFailCallback;
 
     int m_CurrentLevel = 0;
-    int m_CurrentBagIndex = 0;
-    int m_UnlockedBags = 0;
+    // int m_CurrentBagIndex = 0;
+    // int m_UnlockedBags = 0;
     Bag m_CurrentBag = null; 
     Question m_CurrentQuestion = null;
     static float c_TimeBeforeUnlock = 0.5f;

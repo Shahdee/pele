@@ -30,7 +30,6 @@ public class GUILogic : UIObject, IInitable, IUpdatable
         Debug.Log("Screen " + Screen.width + " . " + Screen.height);
         Debug.Log("RTrs " + m_RectTransform.sizeDelta.x + " / " + m_RectTransform.sizeDelta.y);
 
-
         m_MainLogic.StartGame();
     }
 

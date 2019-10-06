@@ -152,12 +152,12 @@ public class WinGameplay : WinViewBase
     static float c_MoveNextTime = 2f;
     float m_CurrMoveNextTime = 0;
 
-    bool m_MoveNextTimer = false;
+    // bool m_MoveNextTimer = false;
 
-    void SetMoveNextTimer(){
-        m_MoveNextTimer = true;
-        m_CurrMoveNextTime = c_MoveNextTime;
-    }
+    // void SetMoveNextTimer(){
+    //     m_MoveNextTimer = true;
+    //     m_CurrMoveNextTime = c_MoveNextTime;
+    // }
 
     // // you lost!
     // void OnBagUnlockTimeIsUp(){
