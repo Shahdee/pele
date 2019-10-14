@@ -114,7 +114,7 @@ namespace UnityEngine.UI
 
             base.OnPointerDown(eventData);
 
-            //Debug.LogError("OnPointerDown");
+            // Debug.LogError("OnPointerDown");
 
             OnDown();
         }
@@ -125,7 +125,7 @@ namespace UnityEngine.UI
 
             if (eventData.button != PointerEventData.InputButton.Left) return;
 			
-                //Debug.LogError("OnPointerUp");
+            // Debug.LogError("OnPointerUp");
 
 			OnUp();
         }
@@ -134,7 +134,7 @@ namespace UnityEngine.UI
         {
             base.OnPointerEnter(eventData);
 
-            //Debug.LogError("OnPointerEnter ");
+            // Debug.LogError("OnPointerEnter ");
 
 			OnEnter();
         }
@@ -143,7 +143,7 @@ namespace UnityEngine.UI
         {
             base.OnPointerExit(eventData);
 
-            //Debug.LogError("OnPointerExit");
+            // Debug.LogError("OnPointerExit");
 
             OnExit();
         }

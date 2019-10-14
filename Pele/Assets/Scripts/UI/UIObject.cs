@@ -22,6 +22,8 @@ public class UIObject : MonoBehaviour
             gameObject.SetActive(show);
     }
 
-    
+    public bool isShown(){
+        return gameObject.activeSelf;
+    }
 
 }

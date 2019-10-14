@@ -43,11 +43,11 @@ public class MainLogic : MonoBehaviour
         m_LevelLogic = new LevelLogic(this);
         m_Profile = new PlayerProfile(this);
 
-        InitBackend();
-
         m_InputManager.Init(this);
         m_EntityManager.Init(this);
         m_GUILogic.Init(this);
+
+        InitBackend();
     }
 
 #region Backend 
@@ -104,14 +104,14 @@ public class MainLogic : MonoBehaviour
 
         // TODO future - doesn't mean we can't continue playing the game 
     }
-
 #endregion
 
     void OnAuthComplete(){
         Debug.Log("OnAuthComplete");
 
-        // get player data 
-        // show ui 
+        // TODO future - get player data 
+
+        StartGame();
     }
 
     public void StartGame(){
@@ -119,11 +119,15 @@ public class MainLogic : MonoBehaviour
         // TODO - set level according to players progress 
         // playfab or player prefs 
 
-        m_LevelLogic.StartLevel(0);
+        m_LevelLogic.StartGame(0);
     }
 
     public void TrackInput(bool track){
         m_InputManager.TrackInput(track);
+    }
+
+    public void RestartLevel(){
+        m_LevelLogic.RestartCurrLevel();
     }
 
     public void MoveNext(){

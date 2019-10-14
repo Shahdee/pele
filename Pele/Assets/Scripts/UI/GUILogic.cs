@@ -20,17 +20,12 @@ public class GUILogic : UIObject, IInitable, IUpdatable
     public void Init(MainLogic main){
 
         m_MainLogic = main;
-
-        m_MainLogic.GetLevelLogic().AddLevelStartListener(OnLevelStarted);
+        m_MainLogic.GetLevelLogic().AddGameStartListener(GameStart);
         
         InitWindows();
 
-        // OpenWindow(WinViewBase.WinType.Menu); 
- 
         Debug.Log("Screen " + Screen.width + " . " + Screen.height);
         Debug.Log("RTrs " + m_RectTransform.sizeDelta.x + " / " + m_RectTransform.sizeDelta.y);
-
-        m_MainLogic.StartGame(); // for test here
     }
 
     void InitWindows(){
@@ -57,7 +52,7 @@ public class GUILogic : UIObject, IInitable, IUpdatable
         }
     }
 
-    void OnLevelStarted(int level){
+    void GameStart(int level){
         OpenWindow(WinViewBase.WinType.Gameplay);
     }
 }

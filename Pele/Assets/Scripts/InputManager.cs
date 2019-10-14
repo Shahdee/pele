@@ -48,9 +48,9 @@ public class InputManager : MonoBehaviour, IUpdatable, IInitable
         m_OnTouchEndCallback -= listener;
     }
 
-    void OnTouchEnd(Vector2 dir){
+    void OnTouchEnd(Vector2 pos){
         if (m_OnTouchEndCallback!=null)
-            m_OnTouchEndCallback(dir);
+            m_OnTouchEndCallback(pos);
     }
 
     public void Init(MainLogic logic){
@@ -89,15 +89,17 @@ public class InputManager : MonoBehaviour, IUpdatable, IInitable
 
         if (Input.GetMouseButton(0))
         {
+            // Debug.LogWarning("held ." + Input.mousePosition); // delta instead of sending every frame 
+
             m_TouchPos = Input.mousePosition;
-            // Debug.Log("held ." + Input.mousePosition); // delta instead of sending every frame 
+            OnTouchMove(m_TouchPos);
         }
 
         if (Input.GetMouseButtonUp(0))
         {
             // Debug.LogError("up."+ Input.mousePosition);
-
-            OnTouchEnd(m_TouchStartPos - m_TouchPos);
+            m_TouchPos = Input.mousePosition;
+            OnTouchEnd(m_TouchPos);
         }
     }
 
@@ -106,6 +108,8 @@ public class InputManager : MonoBehaviour, IUpdatable, IInitable
         if (Input.touchCount > 0)
         {
             m_Touch = Input.GetTouch(0);
+
+            // Debug.Log("p " + m_Touch.phase);
 
             // Handle finger movements based on touch phase.
             switch (m_Touch.phase)
@@ -124,7 +128,8 @@ public class InputManager : MonoBehaviour, IUpdatable, IInitable
 
                 // Report that a direction has been chosen when the finger is lifted.
                 case TouchPhase.Ended:
-                    OnTouchEnd(m_TouchStartPos-m_TouchPos);
+                    m_TouchPos = m_Touch.position;
+                    OnTouchEnd(m_TouchPos);
                     break;
             }
         }
