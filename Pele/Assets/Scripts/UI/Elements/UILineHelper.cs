@@ -47,8 +47,9 @@ public class UILineHelper : UIObject, IUpdatable, IInitable
       }
    }
 
+   // TODO future - distance we get from RayCast, has to be scaled by the coeff. which is used in Canvas    
    void SetLineLength(float length){
-      m_VecSize.y = length;
+      m_VecSize.y = length / GUILogic.GetScale();
       m_RectTransform.sizeDelta = m_VecSize;
    }
 }

@@ -12,6 +12,7 @@ public class UIBall : UIObject, IUpdatable, IInitable
     public Collider2D m_Collider;
     public Text m_TxtLives;
     public UILineHelper m_LineHelper;
+    public UIFingerHelper m_FingerHelper;
     public Image m_ImgBall;
     public float m_ExplodeTime = 3f;
     public float m_MinVelocityCoeff = 0.1f;
@@ -56,6 +57,7 @@ public class UIBall : UIObject, IUpdatable, IInitable
 
     public void Init(MainLogic logic){
         m_LineHelper.Init(logic);
+        m_FingerHelper.Init(logic);
     }
 
     public void Strike(Vector2 directionNorm, float magnitude){

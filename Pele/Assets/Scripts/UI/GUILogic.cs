@@ -17,6 +17,12 @@ public class GUILogic : UIObject, IInitable, IUpdatable
         return m_MainLogic;
     }
 
+    static float m_Scale;
+
+    public static float GetScale(){
+        return m_Scale;
+    }
+
     public void Init(MainLogic main){
 
         m_MainLogic = main;
@@ -26,6 +32,9 @@ public class GUILogic : UIObject, IInitable, IUpdatable
 
         Debug.Log("Screen " + Screen.width + " . " + Screen.height);
         Debug.Log("RTrs " + m_RectTransform.sizeDelta.x + " / " + m_RectTransform.sizeDelta.y);
+        Debug.Log("scale " + m_RectTransform.localScale);
+
+        m_Scale = m_RectTransform.localScale.x;
     }
 
     void InitWindows(){

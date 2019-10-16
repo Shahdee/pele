@@ -101,6 +101,7 @@ public class WinGameplay : WinViewBase
         m_BallUp = false;
 
         m_Ball.m_LineHelper.Show(true);
+        m_Ball.m_FingerHelper.Show(true);
     }
 
 
@@ -120,6 +121,7 @@ public class WinGameplay : WinViewBase
         TryToLaunchOrCancelBall();
 
         m_Ball.m_LineHelper.Show(false);
+        m_Ball.m_FingerHelper.Show(false);
     }
 
     //can be triggered regardless of down
@@ -186,9 +188,7 @@ public class WinGameplay : WinViewBase
     float m_Angle;
     float c_AngleInitialDisplace = 90; // because initial pos for line is upward, rather than aligned with X axis 
 
-    // when canvas is screenspace overlay,
-    // m_RectTransform.position is also in screenspace like mouse 
-    // so no need to convert positions 
+    
     void TryToAdjustBallHelpers(){
 
         if (m_BallDown && m_TouchBegin){
@@ -196,10 +196,20 @@ public class WinGameplay : WinViewBase
             m_Dir.x = m_Ball.m_RectTransform.position.x - m_CurrTouchPos.x;
             m_Dir.y = m_Ball.m_RectTransform.position.y - m_CurrTouchPos.y;
 
+            // Debug.Log("m_Ball.m_RectTransform.position " + m_Ball.m_RectTransform.position);
+            // Debug.Log("m_CurrTouchPos " + m_CurrTouchPos);
+
             m_Angle = Mathf.Atan2(m_Dir.y, m_Dir.x) * Mathf.Rad2Deg - c_AngleInitialDisplace; 
 
             m_Ball.m_LineHelper.Rotate(m_Angle);
             m_Ball.m_LineHelper.CastLine(m_Dir);
+
+            m_Dir.x = m_CurrTouchPos.x - m_Ball.m_RectTransform.position.x;
+            m_Dir.y = m_CurrTouchPos.y - m_Ball.m_RectTransform.position.y;
+
+            m_Angle = Mathf.Atan2(m_Dir.y, m_Dir.x) * Mathf.Rad2Deg - c_AngleInitialDisplace; 
+
+            m_Ball.m_FingerHelper.SetLine(m_Angle, m_Dir.magnitude);
         }
     }
 
@@ -237,7 +247,7 @@ public class WinGameplay : WinViewBase
                 m_Dir.y = m_Ball.m_RectTransform.position.y - m_CurrTouchPos.y;
 
                 // m_StrikeMagnitude = Mathf.Clamp(dir.magnitude, c_StrikeMagnitudeMin, c_StrikeMagnitudeMax);
-                m_Ball.Strike(m_Dir.normalized, m_StrikeMagnitudeMax);
+                m_Ball.Strike(m_Dir.normalized, m_StrikeMagnitudeMax * GUILogic.GetScale());
             }
             ResetKeys();
         }

@@ -68,7 +68,9 @@ public class MainLogic : MonoBehaviour
         m_PlayfabConnect.AddCredentialsSuccessListener(OnAddCredentialsSuccess);
         m_PlayfabConnect.AddCredentialsFailListener(OnAddCredentialsFail);
 
-        m_PlayfabConnect.SendLogin();
+        // m_PlayfabConnect.SendLogin();
+
+        OnAuthComplete(); // temp 
     }
 
     // TODO future - show window asking to add credentials 
@@ -90,7 +92,9 @@ public class MainLogic : MonoBehaviour
     }
 
     void OnLoginFail(){
-        // TODO future - should retry several times before giving up 
+        Debug.LogError("OnLoginFail ");
+
+        OnAuthComplete(); // TODO future - should retry several times before giving up 
     }
 
     void OnAddCredentialsSuccess(){
@@ -99,6 +103,8 @@ public class MainLogic : MonoBehaviour
     }
 
     void OnAddCredentialsFail(){
+
+        Debug.LogError("OnAddCredentialsFail ");
 
         OnAuthComplete();
 
